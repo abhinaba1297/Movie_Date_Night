@@ -336,4 +336,130 @@ function showFinal(){
 }
 
 // =========================
-// Final
+// Final countdown
+// =========================
+
+function updateFinalCountdown(){
+  const finalCountdownEl = document.getElementById("finalCountdown");
+  if(!finalCountdownEl){
+    return;
+  }
+
+  const now = new Date();
+  const diff = TARGET_DATE - now;
+
+  if(diff <= 0){
+    finalCountdownEl.textContent = "It is date-night time, my queen 💌";
+    return;
+  }
+
+  const totalSeconds = Math.floor(diff / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  if(days > 0){
+    finalCountdownEl.textContent =
+      `Countdown to our movie date: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+  } else {
+    finalCountdownEl.textContent =
+      `Countdown to our movie date: ${hours}h ${minutes}m ${seconds}s`;
+  }
+}
+
+setInterval(updateFinalCountdown, 1000);
+
+// =========================
+// Music
+// =========================
+
+function startMusic(){
+  const audio = document.getElementById("bgMusic");
+
+  if(!audio || musicStarted){
+    return;
+  }
+
+  audio.volume = 0.38;
+  audio.load();
+
+  audio.play()
+    .then(() => {
+      musicStarted = true;
+    })
+    .catch(() => {
+      alert("Music did not start. Check that song.mp3 is uploaded and browser-compatible.");
+    });
+}
+
+// =========================
+// Buttons
+// =========================
+
+backBtn.onclick = () => {
+  if(idx > 0){
+    idx--;
+    render();
+  }
+};
+
+restartBtn.onclick = () => {
+  idx = -1;
+  render();
+};
+
+memoryBtn.onclick = () => {
+  showRandomMedia();
+};
+
+// =========================
+// Decorative animations
+// =========================
+
+function createFloat(){
+  const el = document.createElement("div");
+  el.className = "float";
+  el.textContent = ["💌", "✨", "🍕", "👑", "❤️", "🎬"][Math.floor(Math.random() * 6)];
+  el.style.left = `${Math.random() * 100}%`;
+  el.style.animationDuration = `${5 + Math.random() * 5}s`;
+  el.style.fontSize = `${18 + Math.random() * 18}px`;
+
+  floatingLayer.appendChild(el);
+
+  setTimeout(() => {
+    el.remove();
+  }, 10000);
+}
+
+setInterval(createFloat, 700);
+
+function burstConfetti(){
+  for(let i = 0; i < 70; i++){
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = `${Math.random() * 100}%`;
+    c.style.background = ["#e86f93", "#f5c77d", "#ff9fba", "#ffffff", "#b94167"][Math.floor(Math.random()*5)];
+    c.style.animationDelay = `${Math.random() * .5}s`;
+    c.style.transform = `rotate(${Math.random()*180}deg)`;
+
+    document.body.appendChild(c);
+
+    setTimeout(() => {
+      c.remove();
+    }, 2200);
+  }
+}
+
+// =========================
+// Utility
+// =========================
+
+function escapeHtml(str){
+  return str
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+render();
