@@ -187,11 +187,9 @@ function handleAnswer(q){
   }
 
   if(q.type === "memory"){
-    showRandomMedia();
-    idx++;
-    setTimeout(render, 1200);
-    return;
-  }
+  showMemoryInterlude();
+  return;
+}
 
   if(q.type === "final"){
     showFinal();
