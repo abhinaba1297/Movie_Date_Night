@@ -187,9 +187,9 @@ function handleAnswer(q){
   }
 
   if(q.type === "memory"){
-  showMemoryInterlude();
-  return;
-}
+    showMemoryInterlude();
+    return;
+  }
 
   if(q.type === "final"){
     showFinal();
@@ -285,15 +285,15 @@ function showMemoryInterlude(){
   questionEl.textContent = "A little Gramado memory for you, my queen.";
   choicesEl.innerHTML = "";
 
+  const anotherBtn = makeButton("Show me another memory ✨", false);
+  anotherBtn.onclick = () => {
+    showRandomMedia();
+  };
+
   const nextBtn = makeButton("Next, amor 💌", true);
   nextBtn.onclick = () => {
     idx++;
     render();
-  };
-
-  const anotherBtn = makeButton("Show me another memory ✨", false);
-  anotherBtn.onclick = () => {
-    showRandomMedia();
   };
 
   choicesEl.appendChild(anotherBtn);
