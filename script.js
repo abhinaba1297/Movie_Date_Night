@@ -279,6 +279,29 @@ function showRandomMedia(){
   }
 }
 
+function showMemoryInterlude(){
+  showRandomMedia();
+
+  questionEl.textContent = "A little Gramado memory for you, my queen.";
+  choicesEl.innerHTML = "";
+
+  const nextBtn = makeButton("Next, amor 💌", true);
+  nextBtn.onclick = () => {
+    idx++;
+    render();
+  };
+
+  const anotherBtn = makeButton("Show me another memory ✨", false);
+  anotherBtn.onclick = () => {
+    showRandomMedia();
+  };
+
+  choicesEl.appendChild(anotherBtn);
+  choicesEl.appendChild(nextBtn);
+
+  hintEl.textContent = "Stay here as long as you want. I just wanted to remind you how beautiful that trip with you was.";
+}
+
 function clearMedia(){
   mediaPeek.className = "media-peek";
   mediaPeek.innerHTML = "";
